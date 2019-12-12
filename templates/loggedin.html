@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}Library Congestion Tool{% endblock %}
+{% block style %}
+body {
+  background: url({{ url_for('static', filename='images/bg.jpg')}});
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+      padding: 15px 32px;
+     text-align: center;
+     text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+     margin: 4px 2px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a.rbutton {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    background-color: red;
+    border: none;
+    color: white;
+      padding: 15px 32px;
+     text-align: center;
+     text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+     margin: 4px 2px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#libraries {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#libraries td, #libraries th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+h1 {
+    color: white;
+}
+
+#libraries tr:nth-child(even){background-color: #f2f2f2;}
+#libraries tr:nth-child(odd){background-color:  #cccccc;}
+
+#libraries tr:hover {background-color: #ddd;}
+
+#libraries th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+{% endblock %}
+
+{% block content %}
+<ul>
+    <li><a href="#home">Welcome {{ name }}!</a></li>
+    <li style = "float:right">
+        {% if display %}
+        <a class="active" href="/logout">Sign Out</a>
+        {% else %}
+        <a class="active" href="/login">Sign In</a>
+        {% endif %}
+    </li>
+</ul>
+
+<h1>Current Status of Libraries in UPD</h1>
+
+<table id="libraries">
+    <thead>
+        <th>ID</th>
+        <th>Library</th>
+        <th>Status</th>
+    </thead>
+
+    <tbody>
+    {% for item in results %}
+    <tr>
+        <td>{{item.libid}}</td>
+        <td>{{item.library}}</td>
+        <td>{{item.status}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="/add" class="button">Add</a>
+<a href="/edit" class="button">Edit</a>
+<a href="/delete" class="rbutton">Delete</a>
+
+
+{%endblock%}
